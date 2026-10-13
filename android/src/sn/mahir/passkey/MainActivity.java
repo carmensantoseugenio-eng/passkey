@@ -34,12 +34,13 @@ public class MainActivity extends Activity {
     private String lastRender = "";
     private int accent, onAccent, surface, text, muted, good;
 
+    @SuppressWarnings("deprecation")    // only used before Android 15, where it is not
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
         palette();
         if (getActionBar() != null) getActionBar().hide();
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        // Edge to edge; from Android 15 on it is always so.
+        if (Build.VERSION.SDK_INT < 35) getWindow().setDecorFitsSystemWindows(false);
 
         root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);

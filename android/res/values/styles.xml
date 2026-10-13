@@ -1,0 +1,10 @@
+<resources>
+    <!-- Always dark and drawn behind the system bars. The bar colors only matter
+         before Android 15; from 15 on the bars are always transparent. -->
+    <style name="Theme.Passkey" parent="@android:style/Theme.DeviceDefault.DayNight">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>
