@@ -6,6 +6,8 @@ Your password keeps working either way.
 
 ## Install
 
+<a href="https://play.google.com/store/apps/details?id=sn.mahir.passkey"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="80"></a>
+
 On the phone: install the Passkey app and open it once. Pair it with the
 computer for Bluetooth, or turn on USB debugging for USB. Set the app's
 battery use to Unrestricted, or the phone may stop it in the background.
