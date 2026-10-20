@@ -221,7 +221,7 @@ unsafe fn authenticate(handle: *mut PamHandle, argc: c_int, argv: *const *const 
     };
     let (sender, receiver) = mpsc::channel();
     let handle_address = handle as usize;
-    let prompt_thread = thread::spawn(move || {
+    let prompt = move || {
         let mut answer = ptr::null_mut();
         let status = unsafe {
             pam_prompt(
@@ -239,8 +239,17 @@ unsafe fn authenticate(handle: *mut PamHandle, argc: c_int, argv: *const *const 
         if let Err(error) = sender.send(result) {
             wipe(error.0.answer as *mut c_char);
         }
-    });
-    let mut prompt_thread = Some(prompt_thread);
+    };
+    // Only the parallel mode asks the device while the prompt is open. In
+    // on-empty mode the prompt runs on the caller's thread: a conversation
+    // function may need that thread (kscreenlocker answers through its event
+    // loop), and blocking it while another thread prompts deadlocks.
+    let mut prompt_thread = if on_empty {
+        prompt();
+        None
+    } else {
+        Some(thread::spawn(prompt))
+    };
     let mut prompting = true;
     let mut result = PAM_IGNORE;
 
