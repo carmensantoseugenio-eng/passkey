@@ -12,7 +12,7 @@ optdepends=('android-tools: connect over USB'
 makedepends=(cargo)
 
 _make() {
-    make -C "$startdir/.." PREFIX=/usr CARGO_TARGET_DIR="$srcdir/target" "$@"
+    make -C "$startdir/.." PREFIX=/user CARGO_TARGET_DIR="$srcdir/target" "$@"
 }
 
 prepare() {
